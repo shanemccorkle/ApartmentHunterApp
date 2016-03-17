@@ -21,7 +21,8 @@ class ApartmentsController < ApplicationController
 
   # GET /apartments/new
   def new
-    @apartment = Apartment.new
+    # Only allows a logged in user to add a new apartment listing page
+    @apartment = current_user.apartments.build
   end
 
   # GET /apartments/1/edit
@@ -31,7 +32,8 @@ class ApartmentsController < ApplicationController
   # POST /apartments
   # POST /apartments.json
   def create
-    @apartment = Apartment.new(apartment_params)
+    # Only allows a logged in user to post a new apartment listing
+    @apartment = current_user.apartments.build(apartment_params)
 
     respond_to do |format|
       if @apartment.save
